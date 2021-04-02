@@ -6,7 +6,7 @@ Description: This plugin provides access and viewing of the history of DAG event
 Version: 1.2.14
 Author: DEMLABS (c) 2020
 Author URI: https://demlabs.net
-License: A "Slug" license name e.g. GPL2
+License: GNU GPL v3
 */
 
 include_once ("Event-explorer.php");
