@@ -1,5 +1,6 @@
 <?php
 require_once "Node_CLI_CMD.php";
+require_once "Cellframe-explorer_common.php";
 
 final class Node_CLI_CMD_Dag extends Node_CLI_CMD
 {
@@ -42,11 +43,7 @@ public function event_list_parse($data){
         $hash = explode(" ", $data[$i])[0];
         $hash = trim($hash, "\t:");
         $date = explode("=", $data[$i])[1];
-        $dt = explode(" ", $date);
-        if (count($dt) == 5)
-            $date_str = "<span>" . $dt[0] . " " . $dt[1] . " " . $dt[2] . "</span> <span>" . $dt[3] . "</span> <span>" . $dt[4] . "</span>";
-        else
-            $date_str = "<span>" . $dt[0] . " " . $dt[1] . " " . $dt[3] . "</span> <span>" . $dt[4] . "</span> <span>" . $dt[5] . "</span>";
+        $date_str = get_date_format($date);
         $obj_hash = (object)array(
             "event" => $hash,
             "ts_created"=>$date_str
@@ -96,7 +93,7 @@ public function  event_dump_parse($data){
     $ptr++;
     $datum_type_id = trim(explode("=", $data[$ptr])[1], "\t");
     $ptr++;
-    $datum_ts_create = trim(explode("=", $data[$ptr])[1], "\t");
+    $datum_ts_create = get_date_format(trim(explode("=", $data[$ptr])[1], "\t"));
     $ptr++;
     $datum_data_size = trim(explode("=", $data[$ptr])[1], "\t");
     $ptr++;
@@ -104,12 +101,14 @@ public function  event_dump_parse($data){
     $event = trim(explode(" ", $data[0])[1], "\t");
     $n_event = substr($event, 0, strlen($event)-1);
     $ts_created = explode(":", $data[4]);
+    $f1 = $ts_created[1].":".$ts_created[2].":".$ts_created[3];
+    $ts_created_df = get_date_format($f1);
     $dump_data_obj = (object)(array(
         'event' => $n_event,
         'version' => explode(":", $data[1])[1],
         'cell_id' => explode(":", $data[2])[1],
         'chain_id' => explode(":", $data[3])[1],
-        'ts_created' => $ts_created[1].":".$ts_created[2].":".$ts_created[3],
+        'ts_created' => $ts_created_df,
         'hashes' => $links,
         'datum_size' => $datum_size,
         'datum_version' => $datum_version,

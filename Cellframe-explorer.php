@@ -3,7 +3,7 @@
 Plugin Name: CellFrame Explorer
 Plugin URI: https://gitlab.demlabs.net/cellframe/wordpress-plugin-cellframe-explorer
 Description: This plugin provides access and viewing of the history of DAG events, Transaction, Bloc events
-Version: 1.2.15
+Version: 1.2.17
 Author: DEMLABS (c) 2020
 Author URI: https://demlabs.net
 License: GNU GPL v3

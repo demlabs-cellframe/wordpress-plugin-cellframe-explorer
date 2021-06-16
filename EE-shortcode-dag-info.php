@@ -15,7 +15,7 @@ function EE_dag_info($atts){
             return "<div class='error'>Link have invalid data</div>";
         $node = new Node_CLI();
         $result = $node->exec($dag);
-        $str = "<a href='".get_site_url().$atts['base_url_page']."&net=".$_GET['net']."&chain=".$_GET['chain']."' class='btn'>To table with other event</a><div id='DagTable'></div>";
+        $str = "<a href='".get_site_url().$atts['base_url_page']."?net=".$_GET['net']."&chain=".$_GET['chain']."' class='btn'>To table with other event</a><div id='DagTable'></div>";
         $str .= "<script type='text/javascript'>";
         $res_data = $result->getData();
         $str .= "

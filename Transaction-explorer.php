@@ -68,15 +68,20 @@ function TE_history($atts){
             data: te_dataSet,
             columns: [
                 { 
-                    className: \"details-control\",
+                    className: \"details-control CE_inf_col_1\",
                     data:'hash' 
+                },
+                {
+                    className: \"details-control CE_inf_col_2\",
+                    data:'ts_created' 
                 }
             ],
             createdRow: function (row, data, dataIndex){
                 row.id = 'Event'+data.event;
+                jQuery(row).addClass('CE_inf_row')
                 var tmp = data.hash.replace(/\s+/g, '').trim();
                 var link = \"<a href='".get_site_url()."/".$atts['url_page_tx_info']."?hash=\"+tmp+\"&net=\"+te_net_selected+\"' >\"+
-                    \"<img src='".plugin_dir_url(__FILE__)."img/add_new_page_icon.png' width='50px;' height='50px;'/></a></td>\";
+                    \"<img src='".plugin_dir_url(__FILE__)."img/add_new_page_icon.png' width='12px;' height='12px;'/></a></td>\";
                 var td = row.innerHTML.replace('</td>', link);
                 row.innerHTML = td;
             }
@@ -92,9 +97,10 @@ function TE_history($atts){
                 tr.addClass('shown');
             }
         });
+        jQuery('#te_table_hashes tbody').addClass('CE_inf_tbody')
      }, false);
 </script>";
     $str .= "<div class='te_hh_head_table' style='text-align: center'>".$head."</div>".
-        "<table id='te_table_hashes'><thead><tr><th>Hash Transaction</th></tr></thead></table>";
+        "<table id='te_table_hashes'><thead class='CE_thead'><tr class='CE_th_row'><th>Hash Transaction</th><th>TS Created</th></tr></thead></table>";
     return $str;
 }

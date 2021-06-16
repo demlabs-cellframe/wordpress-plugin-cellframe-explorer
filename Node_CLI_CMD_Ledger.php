@@ -1,5 +1,6 @@
 <?php
 require_once "Node_CLI_CMD.php";
+require_once "Cellframe-explorer_common.php";
 
 
 final class Node_CLI_CMD_Ledger extends Node_CLI_CMD
@@ -48,7 +49,11 @@ final class Node_CLI_CMD_Ledger extends Node_CLI_CMD
         for ($i = 0; $i < $c_elements; $i++){
             $nts = explode(":", $data[$i]);
             if($nts[0] == "transaction" && count($nts) == 3){
-                $i_str = 2;
+                $token_ticker_tx = explode(":", $data[$i+2])[1];
+                $ts_created_tx_raw = explode(":", $data[$i+1]);
+                $ts_created_tx_data = $ts_created_tx_raw[1].":".$ts_created_tx_raw[2].":".$ts_created_tx_raw[3];
+                $ts_created_tx = get_date_format($ts_created_tx_data);
+                $i_str = 4;
                 $el = trim($data[$i + $i_str], "\t: ");
                 $items = array();
                 //while ($i_str >= 2)
@@ -117,6 +122,8 @@ final class Node_CLI_CMD_Ledger extends Node_CLI_CMD
                 $i_str = 2;
                 array_push($ledger, (object)array(
                     "hash" => $nts[2],
+                    "token_ticker" => $token_ticker_tx,
+                    "ts_created" => $ts_created_tx,
                     "items" => $items
                 ));
             }
@@ -139,8 +146,12 @@ final class Node_CLI_CMD_Ledger extends Node_CLI_CMD
     public function ledger_tx_info_parse($data){
         $count_str = count($data);
         $tx_hash = explode(":", $data[0])[2];
+        $tx_token_ticker = explode(":", $data[2])[1];
+        $ts_created_raw = explode(":", $data[1]);
+        $ts_created = $ts_created_raw[1].":".$ts_created_raw[2].":".$ts_created_raw[3];
+        $tx_ts_created = get_date_format($ts_created);
         $items = array();
-        for($i = 2; $i < $count_str; $i++){
+        for($i = 4; $i < $count_str; $i++){
             $item_type = trim($data[$i], "\t: ");
             switch($item_type){
                 case "IN":
@@ -200,6 +211,8 @@ final class Node_CLI_CMD_Ledger extends Node_CLI_CMD
         }
         $ret = (object)array(
             "hash" => $tx_hash,
+            "token_ticker" => $tx_token_ticker, 
+            "ts_created" => $tx_ts_created,
             "items" => $items
         );
         return $ret;

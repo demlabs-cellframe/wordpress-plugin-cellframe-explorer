@@ -46,13 +46,13 @@
 }
 .tabs > li.active:before {
   transition-duration: 0.5s;
-  background-color: white;
+  background-color: transparent;
   -webkit-transform: translateY(0);
   transform: translateY(0);
 }
 
 .tab__content {
-  background-color: white;
+  background-color: transparent;
   position: relative;
   width: 100%;
   border-radius: 5px;
@@ -70,7 +70,7 @@
   border-radius: 5px;
   width: 100%;
   padding: 45px 40px 40px 40px;
-  background-color: white;
+  background-color: transparent;
 }
 
 
