@@ -8,6 +8,6 @@ add_action('rest_api_init', function(){
 
 function INFO_get_circulating_suply(WP_REST_Request $request){
     $response = new WP_REST_Response();
-    $response->set_data(11900000);
+    $response->set_data(21948100);
     return $response;
 }
